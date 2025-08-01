@@ -27,6 +27,6 @@ class ConducteurForm(forms.ModelForm):
         labels = {
             'nom': 'Nom',
             'prenom': 'Prénom',
-            'date_naissance': 'Date de naissance',
-            'date_embauche': 'Date d\'embauche',
+            'date_naissance': "Date de naissance",
+            'date_embauche': "Date d'embauche",
         }

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django_tables2 import RequestConfig
 from .models import Conducteur
-from .tables import ConducteurTable
+from .tables import ConducteurTable, ConducteurSansDateNaissanceTable
 from .forms import ConducteurForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, redirect, render
@@ -17,7 +17,7 @@ def tableau_de_bord(request):
 #ne marche que si DEBUG = FALSE, sinon gestion générique par Django
 def page_inconnue(request, exception):
     if request.user.is_authenticated:
-        return redirect("tableau")
+        return redirect("conducteurs")
     else:
         return redirect("login")
 
@@ -83,3 +83,28 @@ def conducteur_edit(request, pk):
         'form': form,
         'conducteur': conducteur
     })
+
+def conducteurs_sans_date_naissance(request):
+    """Vue pour afficher les conducteurs sans date de naissance"""
+    # Récupérer les conducteurs sans date de naissance
+    conducteurs = Conducteur.objects.filter(date_naissance__isnull=True)
+    
+    # Créer la table
+    table = ConducteurSansDateNaissanceTable(conducteurs)
+    
+    # Configuration pour la pagination et le tri
+    RequestConfig(request, paginate={"per_page": 25}).configure(table)
+    
+    # Si c'est une requête HTMX, on retourne seulement le tableau
+    if request.headers.get('HX-Request'):
+        return render(request, 'configurations/pages/conducteur_sans_date_naissance_table_partial.html', {
+            'table': table
+        })
+    
+    # Sinon, on retourne la page complète
+    context = {
+        'table': table,
+        'total_count': conducteurs.count()
+    }
+    
+    return render(request, 'configurations/pages/conducteurs_sans_date_naissance.html', context)

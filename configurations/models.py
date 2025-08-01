@@ -8,4 +8,4 @@ class Conducteur(models.Model):
 
     def __str__(self):
         return f"{self.nom} {self.prenom}"
-# Create your models here.
+

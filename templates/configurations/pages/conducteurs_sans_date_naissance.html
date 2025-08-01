@@ -1,0 +1,37 @@
+{% extends 'configurations/base.html' %}
+{% load django_tables2 %}
+
+{% block title %}Conducteurs sans date de naissance{% endblock %}
+
+{% block head_extra %}
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">
+			<span class="icon-users"></span>Conducteurs sans date de naissance
+		</h3>
+		<!-- Badge avec le nombre total -->
+		<div class="card-options">
+			<span class="badge bg-warning text-dark">{{ total_count }} conducteur(s)</span>
+		</div>
+	</div>
+	<div class="card-body">
+		<!-- Message d'information -->
+		<div class="alert alert-info mb-3">
+			<span class="icon-info-circle"></span>
+			Cette liste affiche tous les conducteurs pour lesquels la date de naissance n'est pas renseignée.
+		</div>
+		
+		<!-- Conteneur du tableau -->
+		<div id="table-container">
+			{% include 'configurations/pages/conducteur_sans_date_naissance_table_partial.html' %}
+		</div>
+	</div>
+</div>
+
+<!-- Conteneur pour les modals -->
+<div id="modal-container"></div>
+{% endblock %}

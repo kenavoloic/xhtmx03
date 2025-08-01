@@ -2,9 +2,11 @@
 	<nav>
 		<div>
 			<a href="/">Accueil</a>
-			<a href="{% url 'tableau' %}">Tableau</a>
+			{% comment %}<a href="{% url 'tableau' %}">Tableau</a>{% endcomment %}
+			
 			<a href="{% url 'configurations:conducteur_list' %}">Conducteurs</a>
-			</div>
+			<a href="{% url 'configurations:conducteurs_sans_date_naissance' %}">Dates de naissances</a>
+						</div>
 		<div>
 			{% if user.is_authenticated %}
 			<span>Bonjour, {{ user.username }}</span>

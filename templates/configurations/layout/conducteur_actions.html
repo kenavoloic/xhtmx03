@@ -1,9 +1,5 @@
 <!-- configurations/templates/configurations/layout/conducteur_actions.html -->
-<a href="{% url 'configurations:conducteur_edit' record.pk %}" 
-   class="btn btn-sm btn-outline-primary" 
-   title="Modifier"
-   hx-get="{% url 'configurations:conducteur_edit' record.pk %}"
-   hx-target="#modal-container"
-   hx-trigger="click">
-    <i class="fas fa-edit"></i>
-</a>
+<button type="button" class="btn btn-sm btn-outline-primary" title="Modifier {{ record.nom }} {{ record.prenom }}"
+	hx-get="{% url 'configurations:conducteur_edit' record.pk %}" hx-target="#modal-container" hx-trigger="click">
+	<span class="icon-edit"></span>Modifier
+</button>
