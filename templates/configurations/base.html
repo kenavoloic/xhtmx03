@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}Mon application{% endblock %}</title>
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+	{% block head_extra %}{% endblock %}
+</head>
+
+<body>
+	{% include "configurations/layout/_header.html" %}
+
+	<div class="container">
+		{% comment } {% include "configurations/layout/_sidebar.html" %} {% endcomment %}
+
+		<main>
+			{% block content %}{% endblock %}
+		</main>
+	</div>
+
+	{% include "configurations/layout/_footer.html" %}
+	{% include "configurations/layout/_theme_script.html" %}
+	{% block scripts %}{% endblock %}
+</body>
+
+</html>

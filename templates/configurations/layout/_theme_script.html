@@ -1,0 +1,10 @@
+<script>
+	document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") || "light");
+
+	function toggleTheme() {
+		const current = document.documentElement.getAttribute("data-theme");
+		const next = current === "light" ? "dark" : "light";
+		document.documentElement.setAttribute("data-theme", next);
+		localStorage.setItem("theme", next);
+	}
+</script>

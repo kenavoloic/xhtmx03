@@ -1,0 +1,22 @@
+<header>
+	<nav>
+		<div>
+			<a href="/">Accueil</a>
+			<a href="{% url 'tableau' %}">Tableau</a>
+			<a href="{% url 'configurations:conducteur_list' %}">Conducteurs</a>
+			</div>
+		<div>
+			{% if user.is_authenticated %}
+			<span>Bonjour, {{ user.username }}</span>
+			<form method="post" action="{% url 'logout' %}" style="display:inline;">
+				{% csrf_token %}
+				<button type="submit" class="logout-button">Déconnexion</button>
+			</form>
+			{% else %}
+			<a href="{% url 'login' %}">Connexion</a>
+			<a href="{% url 'admin:login' %}">Connexion admin</a>
+			{% endif %}
+			<button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+		</div>
+	</nav>
+</header>

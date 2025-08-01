@@ -1,0 +1,59 @@
+<!-- configurations/templates/configurations/pages/conducteur_list.html -->
+{% extends 'configurations/base.html' %}
+{% load static %}
+
+{% block title %}Liste des Conducteurs{% endblock %}
+
+{% block extra_head %}
+    <!-- HTMX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.10/htmx.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Liste des Conducteurs</h4>
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Ajouter un conducteur
+                    </a>
+                </div>
+                
+                <div class="card-body">
+                    <!-- Barre de recherche -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="Rechercher un conducteur..."
+                                    hx-get="{% url 'configurations:conducteur_search' %}"
+                                    hx-target="#table-container"
+                                    hx-trigger="keyup changed delay:500ms"
+                                    name="q"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Container pour le tableau -->
+                    <div id="table-container">
+                        {% include 'configurations/pages/conducteur_table_partial.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal container pour les modifications -->
+<div id="modal-container"></div>
+{% endblock %}
+
+
